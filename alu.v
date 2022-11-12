@@ -23,7 +23,7 @@ output [31:0]f;
 output overflow;
 
 wire overflow;
-assign overflow=1'b0;
+
 wire [31:0]f1;
 wire [31:0]f2;
 wire [31:0]f3;
@@ -103,7 +103,7 @@ endmodule
 module mux8to1(d0, d1, d2, d3, d4, d5, d6, d7, s0, s1, s2, f);
 	input d0, d1, d2, d3, d4, d5, d6, d7, s0, s1, s2;
 	output f;
-	
+	wire w1,w2;
 	mux4to1 mux0 (d0, d1, d2, d3, s0, s1, w1);
 	mux4to1 mux1 (d4, d5, d6, d7, s0, s1, w2);
 	mux2to1 mux2 (w1, w2, s2, f);
@@ -112,7 +112,7 @@ endmodule
 module mux4to1(d0, d1, d2, d3, s0, s1, f);
 	input d0, d1, d2, d3, s0, s1;
 	output f;
-	
+	wire w1,w2;
 	mux2to1 mux0 (d0, d1, s0, w1);
 	mux2to1 mux1 (d2, d3, s0, w2);
 	mux2to1 mux2 (w1, w2, s1, f);
