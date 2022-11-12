@@ -1,4 +1,4 @@
-
+/*32 位移位运算 */
 module shiftbitleft(c,a,b);
 output [31:0]c;
 input [31:0]a;

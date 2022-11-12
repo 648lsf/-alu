@@ -1,3 +1,4 @@
+/*32 位异或运算*/
 module xnor32 (out,x,y);
 input [31:0]x;
 input [31:0]y;

@@ -1,6 +1,26 @@
-/* ========================================================= */
-/*                    MULTIPLEXER MODULE(s)                  */
-/* ========================================================= */
+/*数据选择器*/
+module mux32(x,y,f);
+input [31:0]x;
+input [4:0]y;
+output f;
+mux16to1 mux1(x[0],x[1],x[2],x[3],x[4],x[5],x[6],x[7],x[8],x[9],x[10],x[11],x[12],x[13],x[14],x[15],y[0],y[1],y[2],y[3],w1);
+mux16to1 mux2(x[16],x[17],x[18],x[19],x[20],x[21],x[22],x[23],x[24],x[25],x[26],x[27],x[28],x[29],x[30],x[31],y[0],y[1],y[2],y[3],w2);
+mux2to1 mux3(w1,w2,y[4],f);
+
+
+endmodule
+module mux16to1(d0, d1, d2, d3, d4, d5, d6, d7,d8,d9,d10,d11,d12,d13,d14,d15, s0, s1, s2, s3,f);
+input d0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14,d15;
+input s0, s1, s2, s3;
+output f;
+mux8to1 mux0(d0,d1,d2,d3,d4,d5,d6,d7,s0,s1,s2,w1);
+mux8to1 mux1(d8,d9,d10,d11,d12,d13,d14,d15,s0,s1,s2,w2);
+mux2to1 mux3(w1,w2,s3,f);
+
+
+
+
+endmodule
 module mux8to1(d0, d1, d2, d3, d4, d5, d6, d7, s0, s1, s2, f);
 	input d0, d1, d2, d3, d4, d5, d6, d7, s0, s1, s2;
 	output f;
