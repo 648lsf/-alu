@@ -1,0 +1,41 @@
+/*32 位异或运算*/
+`timescale 1ps/1ps
+module xor32 (out,x,y);
+input [31:0]x;
+input [31:0]y;
+output [31:0]out;
+xor xor1[31:0](out,x,y);
+// xor(out[0],x[0],y[0]);
+// xor(out[1],x[1],y[1]);
+// xor(out[2],x[2],y[2]);
+// xor(out[3],x[3],y[3]);
+// xor(out[4],x[4],y[4]);
+// xor(out[5],x[5],y[5]);
+// xor(out[6],x[6],y[6]);
+// xor(out[7],x[7],y[7]);
+// xor(out[8],x[8],y[8]);
+// xor(out[9],x[9],y[9]);
+// xor(out[10],x[10],y[10]);
+// xor(out[11],x[11],y[11]);
+// xor(out[12],x[12],y[12]);
+// xor(out[13],x[13],y[13]);
+// xor(out[14],x[14],y[14]);
+// xor(out[15],x[15],y[15]);
+// xor(out[16],x[16],y[16]);
+// xor(out[17],x[17],y[17]);
+// xor(out[18],x[18],y[18]);
+// xor(out[19],x[19],y[19]);
+// xor(out[20],x[20],y[20]);
+// xor(out[21],x[21],y[21]);
+// xor(out[22],x[22],y[22]);
+// xor(out[23],x[23],y[23]);
+// xor(out[24],x[24],y[24]);
+// xor(out[25],x[25],y[25]);
+// xor(out[26],x[26],y[26]);
+// xor(out[27],x[27],y[27]);
+// xor(out[28],x[28],y[28]);
+// xor(out[29],x[29],y[29]);
+// xor(out[30],x[30],y[30]);
+// xor(out[31],x[31],y[31]);
+
+endmodule
