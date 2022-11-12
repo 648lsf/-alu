@@ -1,30 +1,31 @@
-
 module adder32(A,
                B,
                S,
                C32);
-    input [32:1] A;
-    input [32:1] B;
-    output [32:1] S;
+    input [31:0] A;
+    input [31:0] B;
+    output [31:0] S;
     output C32;
     
     wire px1,gx1,px2,gx2;
     wire c16;
+    wire zero;
+    assign zero=1'b0;
     
     CLA_16 CLA1(
-    .A(A[16:1]),
-    .B(B[16:1]),
-    .c0(0),
-    .S(S[16:1]),
+    .A(A[15:0]),
+    .B(B[15:0]),
+    .c0(zero),
+    .S(S[15:0]),
     .px(px1),
     .gx(gx1)
     );
     
     CLA_16 CLA2(
-    .A(A[32:17]),
-    .B(B[32:17]),
+    .A(A[31:16]),
+    .B(B[31:16]),
     .c0(c16),
-    .S(S[32:17]),
+    .S(S[31:16]),
     .px(px2),
     .gx(gx2)
     );
@@ -76,43 +77,43 @@ module CLA(c0,c1,c2,c3,c4,p1,p2,p3,p4,g1,g2,g3,g4);
 endmodule
 	
 module adder_4(x,y,c0,c4,F,Gm,Pm);
-	input [4:1] x;
-	input [4:1] y;
+	input [3:0] x;
+	input [3:0] y;
 	input c0;
 	output c4,Gm,Pm;
-	output [4:1] F;
+	output [3:0] F;
 	
 	wire p1,p2,p3,p4,g1,g2,g3,g4;
 	wire c1,c2,c3;
 	adder adder1(
-	.X(x[1]),
-	.Y(y[1]),
+	.X(x[0]),
+	.Y(y[0]),
 	.Cin(c0),
-	.F(F[1]),
+	.F(F[0]),
 	.Cout()
 	);
 	
 	adder adder2(
-	.X(x[2]),
-	.Y(y[2]),
+	.X(x[1]),
+	.Y(y[1]),
 	.Cin(c1),
-	.F(F[2]),
+	.F(F[1]),
 	.Cout()
 	);
 	
 	adder adder3(
-	.X(x[3]),
-	.Y(y[3]),
+	.X(x[2]),
+	.Y(y[2]),
 	.Cin(c2),
-	.F(F[3]),
+	.F(F[2]),
 	.Cout()
 	);
 	
 	adder adder4(
-	.X(x[4]),
-	.Y(y[4]),
+	.X(x[3]),
+	.Y(y[3]),
 	.Cin(c3),
-	.F(F[4]),
+	.F(F[3]),
 	.Cout()
 	);
 	
@@ -132,15 +133,15 @@ module adder_4(x,y,c0,c4,F,Gm,Pm);
 	.g4(g4)
 	);
 	
-	xor (p1,x[1],y[1]),
-	(p2,x[2],y[2]),
-	(p3,x[3],y[3]),
-	(p4,x[4],y[4]);
+	xor (p1,x[0],y[0]),
+	(p2,x[1],y[1]),
+	(p3,x[2],y[2]),
+	(p4,x[3],y[3]);
 	
-	and (g1,x[1],y[1]),
-	(g2,x[2],y[2]),
-	(g3,x[3],y[3]),
-	(g4,x[4],y[4]);
+	and (g1,x[0],y[0]),
+	(g2,x[1],y[1]),
+	(g3,x[2],y[2]),
+	(g4,x[3],y[3]);
 	
 	wire p4g3,p4p3g2,p4p3p2g1;
 	and(Pm,p1,p2,p3,p4),
@@ -153,51 +154,51 @@ module adder_4(x,y,c0,c4,F,Gm,Pm);
 endmodule
 	
 module CLA_16(A,B,c0,S,px,gx);
-	input [16:1] A;
-	input [16:1] B;
+	input [15:0] A;
+	input [15:0] B;
 	input c0;
 	output gx,px;
-	output [16:1] S;
+	output [15:0] S;
 	
 	wire c4,c8,c12;
 	wire Pm1,Gm1,Pm2,Gm2,Pm3,Gm3,Pm4,Gm4;
 	
 	adder_4 adder1(
-	.x(A[4:1]),
-	.y(B[4:1]),
+	.x(A[3:0]),
+	.y(B[3:0]),
 	.c0(c0),
 	.c4(),
-	.F(S[4:1]),
+	.F(S[3:0]),
 	.Gm(Gm1),
 	.Pm(Pm1)
 	);
 	
 	adder_4 adder2(
-	.x(A[8:5]),
-	.y(B[8:5]),
+	.x(A[7:4]),
+	.y(B[7:4]),
 	.c0(c4),
 	.c4(),
-	.F(S[8:5]),
+	.F(S[7:4]),
 	.Gm(Gm2),
 	.Pm(Pm2)
 	);
 	
 	adder_4 adder3(
-	.x(A[12:9]),
-	.y(B[12:9]),
+	.x(A[11:8]),
+	.y(B[11:8]),
 	.c0(c8),
 	.c4(),
-	.F(S[12:9]),
+	.F(S[11:8]),
 	.Gm(Gm3),
 	.Pm(Pm3)
 	);
 	
 	adder_4 adder4(
-	.x(A[16:13]),
-	.y(B[16:13]),
+	.x(A[15:12]),
+	.y(B[15:12]),
 	.c0(c12),
 	.c4(),
-	.F(S[16:13]),
+	.F(S[15:12]),
 	.Gm(Gm4),
 	.Pm(Pm4)
 	);
@@ -220,4 +221,3 @@ module CLA_16(A,B,c0,S,px,gx);
 	xor (gx,Gm4,Pm4Gm3,Pm4Pm3Gm2,Pm4Pm3Pm2Gm1);
 	
 endmodule
-	
